@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FindMATA</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap">
+<style>
+:root{--bg:#ecebe6;--fg:#1c1c1b;--mut:#74726c;--line:#c9c7bf;--acc:#b4482a;--sans:'Inter Tight',Helvetica,Arial,sans-serif;--serif:'Instrument Serif',Georgia,serif;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161615;--fg:#e9e8e2;--mut:#8c8a83;--line:#33322f;--acc:#d9714f}}
+:root[data-theme="dark"]{--bg:#161615;--fg:#e9e8e2;--mut:#8c8a83;--line:#33322f;--acc:#d9714f}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 15px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--bg);display:flex;justify-content:space-between;align-items:baseline;padding:14px 20px;border-bottom:1px solid var(--line)}
+.logo{font-weight:500;font-size:17px;letter-spacing:-.01em}
+nav{display:flex;gap:18px;font-size:13px}
+nav a{color:var(--mut);transition:color .2s}nav a:hover,nav a.on{color:var(--fg)}
+main{animation:in .5s ease}@keyframes in{from{opacity:0;transform:translateY(6px)}}
+.pad{padding:0 20px}
+.hero{padding:48px 20px 24px}
+.big{font-weight:500;font-size:clamp(56px,19vw,300px);line-height:.82;letter-spacing:-.06em;margin:0 0 0 -.04em}
+.intro{display:grid;gap:24px;margin-top:40px}
+.serif{font-family:var(--serif);font-size:clamp(26px,4.4vw,52px);line-height:1.08;letter-spacing:-.01em;margin:0;max-width:20em}
+.serif em{color:var(--acc)}
+.cap{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+.sec{display:flex;justify-content:space-between;align-items:baseline;padding:56px 20px 14px}
+.sec h2{margin:0;font-weight:400;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.sec a{font-size:13px;border-bottom:1px solid currentColor}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px 14px;padding:0 20px}
+.card{display:block}.card .im{overflow:hidden}.card svg,.im svg{display:block;width:100%;height:auto;transition:transform .6s ease}
+.card:hover svg{transform:scale(1.03)}
+.card .meta{display:flex;justify-content:space-between;gap:8px;margin-top:8px;font-size:13px}
+.card .meta span:last-child{color:var(--mut);text-align:right}
+.mats{display:flex;gap:10px;overflow-x:auto;padding:0 20px 8px;scrollbar-width:none}
+.mats .m{flex:0 0 150px}.mats svg{width:100%;height:150px;display:block}
+.m p{margin:6px 0 0;font-size:12px;color:var(--mut)}.m b{font-weight:500;color:var(--fg);display:block;font-size:13px}
+.collab{margin:64px 20px 0;padding:40px 0;border-top:1px solid var(--fg);border-bottom:1px solid var(--line);display:grid;gap:20px}
+.btn{display:inline-block;border:1px solid var(--fg);padding:10px 18px;font-size:13px;transition:background .2s,color .2s;width:fit-content}
+.btn:hover{background:var(--fg);color:var(--bg)}
+footer{padding:64px 20px 40px;display:grid;gap:28px;font-size:13px}
+footer .big{font-size:clamp(48px,15vw,220px)}
+.cols{display:flex;gap:40px;flex-wrap:wrap}.cols div{min-width:120px}.cols .cap{display:block;margin-bottom:4px}
+.ph{padding:40px 20px 8px}.ph h1{font-family:var(--serif);font-weight:400;font-size:clamp(44px,9vw,120px);line-height:.95;margin:0 0 12px;letter-spacing:-.02em}
+.ph p{max-width:36em;color:var(--mut);margin:0}
+.filters{display:flex;gap:14px;padding:20px;font-size:13px;flex-wrap:wrap}
+.filters button{all:unset;cursor:pointer;color:var(--mut);border-bottom:1px solid transparent}
+.filters button.on{color:var(--fg);border-color:var(--fg)}
+.detail{display:grid;gap:24px;padding:20px}
+.thumbs{display:flex;gap:8px;margin-top:8px}.thumbs button{all:unset;cursor:pointer;width:64px;opacity:.5;border:1px solid transparent;transition:opacity .2s}
+.thumbs button.on{opacity:1;border-color:var(--fg)}.thumbs svg{display:block;width:100%;height:auto}
+.spec{border-top:1px solid var(--fg);margin:24px 0 0}.spec div{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+.spec span:first-child{color:var(--mut)}.spec span:last-child{text-align:right}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--acc);margin-right:6px}
+.nxt{display:flex;justify-content:space-between;padding:32px 20px;font-size:13px}
+.mgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:36px 14px;padding:20px}
+.mgrid svg{width:100%;height:auto;display:block}.mgrid p{font-size:13px;color:var(--mut);margin:6px 0 0}.mgrid b{display:block;color:var(--fg);font-weight:500;font-size:15px}
+@media(min-width:860px){
+header{padding:16px 36px}nav{gap:32px}.pad,.hero,.sec,.grid,.mats,.detail,.ph,.filters,.mgrid,footer,.nxt{padding-left:36px;padding-right:36px}
+.collab{margin-left:36px;margin-right:36px;grid-template-columns:1fr 1fr}
+.grid{grid-template-columns:repeat(12,1fr);gap:56px 24px}
+.grid .card:nth-child(6n+1){grid-column:1/6}.grid .card:nth-child(6n+2){grid-column:7/11;margin-top:90px}
+.grid .card:nth-child(6n+3){grid-column:2/7}.grid .card:nth-child(6n+4){grid-column:8/13;margin-top:50px}
+.grid .card:nth-child(6n+5){grid-column:1/5}.grid .card:nth-child(6n+6){grid-column:6/12;margin-top:70px}
+.intro{grid-template-columns:1fr 2fr}.detail{grid-template-columns:1.4fr 1fr;gap:48px;align-items:start}
+.mats .m{flex-basis:220px}.mats svg{height:220px}.mgrid{grid-template-columns:repeat(3,1fr);gap:48px 24px}
+}
+</style></head><body>
+<header><a class="logo" href="#home">FindMATA</a><nav><a href="#objects" data-n="objects">Objects</a><a href="#materials" data-n="materials">Materials</a><a href="#collaboration" data-n="collaboration">Collaboration</a></nav></header>
+<main id="app"></main>
+<script>
+const C={ash:'#cfc2ab',alu:'#b9bbbc',res:'#c7742f',con:'#9d9b95',pap:'#ddd6c8',ste:'#2a2a29',oak:'#a98a62',mos:'#7c8a6a'};
+const O=[
+{id:'fold-pendant',n:'Fold Pendant',t:'pendant',bg:'#d8d4c8',c:C.alu,m:'Folded aluminium, cotton cord',d:'32 × 32 × 40 cm',s:'Prototype',y:'2026',x:'One sheet, four folds, no welds. The shade is cut flat and bent into a cone, so the seam is the only ornament. We are still working out how to keep the edge from ringing when it warms up.'},
+{id:'stub-stool',n:'Stub Stool',t:'stool',bg:'#e2ddd0',c:C.ash,m:'Solid ash, linseed oil',d:'34 × 34 × 44 cm',s:'Resolved',y:'2025',x:'A stool turned from a single ash log and left with its tool marks. Sold in small batches as the wood allows.'},
+{id:'slump-lamp',n:'Slump Lamp',t:'orb',bg:'#cfcbbf',c:C.res,m:'Cast resin, powder-coated steel',d:'22 × 22 × 30 cm',s:'In development',y:'2026',x:'A resin dome that sags slightly as it cures. Every one comes out a little different, and we are learning how much variation is too much.'},
+{id:'rail-shelf',n:'Rail Shelf',t:'shelf',bg:'#e5e1d6',c:C.ste,m:'Blackened steel, oak',d:'120 × 22 × 18 cm',s:'Prototype',y:'2026',x:'A thin steel rail carrying oak planks on friction alone. Taken apart in two minutes and moved without tools.'},
+{id:'ledge-table',n:'Ledge Table',t:'table',bg:'#d3d0c8',c:C.con,m:'Cast concrete, ash',d:'90 × 45 × 38 cm',s:'Concept',y:'2026',x:'A low slab with a poured edge that doubles as a shelf. Still on paper while we test mixes for weight and surface.'},
+{id:'drift-sconce',n:'Drift Sconce',t:'sconce',bg:'#e0dacb',c:C.pap,m:'Moulded paper pulp, brass',d:'28 × 14 × 18 cm',s:'In development',y:'2026',x:'A wall light made from pressed pulp. The shade glows unevenly because the fibres are uneven, which is the point.'}];
+const M=[['Brushed aluminium',C.alu,'.04 .9','Takes a fold well. Fingerprints show; we sand rather than coat.'],['Ash',C.ash,'.01 .12','Pale, open grain. Oiled, never lacquered.'],['Cast resin',C.res,'.02 .3','Amber, slightly cloudy. Pour temperature changes everything.'],['Concrete',C.con,'.8 .8','Heavy, honest, pitted. Mixed in small test tiles.'],['Paper pulp',C.pap,'.06 .5','Pressed in a home-made mould. Light and fibrous.'],['Blackened steel',C.ste,'.5 .6','Oil-quenched. Dark, slightly waxy, ages well.']];
+const sw=(c,f,i,h=1)=>`<svg viewBox="0 0 200 ${200*h}" preserveAspectRatio="xMidYMid slice"><filter id="t${i}"><feTurbulence type="fractalNoise" baseFrequency="${f}" numOctaves="3" seed="${i+2}"/><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0"/></filter><rect width="200" height="${200*h}" fill="${c}"/><rect width="200" height="${200*h}" filter="url(#t${i})" opacity=".5"/></svg>`;
+function art(o,v=0){const c=o.c,k='#1c1c1b',sh='rgba(0,0,0,.12)',ox=[0,18,-14][v],sc=[1,1.15,.85][v];let g='';
+const t=o.t;
+if(t=='pendant')g=`<line x1="200" y1="0" x2="200" y2="120" stroke="${k}" stroke-width="2"/><path d="M200 120 L290 300 L110 300Z" fill="${c}"/><path d="M200 120 L200 300" stroke="${k}" stroke-opacity=".25"/><ellipse cx="200" cy="300" rx="90" ry="9" fill="#f3e6c4"/>`;
+if(t=='stool')g=`<rect x="130" y="230" width="140" height="22" fill="${c}"/><rect x="150" y="252" width="14" height="150" fill="${c}"/><rect x="236" y="252" width="14" height="150" fill="${c}"/><ellipse cx="200" cy="410" rx="100" ry="8" fill="${sh}"/>`;
+if(t=='orb')g=`<path d="M120 330 Q120 160 200 160 Q280 160 280 330Z" fill="${c}"/><rect x="190" y="330" width="20" height="60" fill="${k}"/><rect x="150" y="388" width="100" height="10" fill="${k}"/>`;
+if(t=='shelf')g=`<rect x="40" y="250" width="320" height="6" fill="${k}"/><rect x="60" y="210" width="110" height="40" fill="${C.oak}"/><rect x="190" y="190" width="40" height="60" fill="${C.mos}"/><rect x="250" y="226" width="90" height="24" fill="${C.oak}"/><rect x="60" y="256" width="4" height="40" fill="${k}"/><rect x="336" y="256" width="4" height="40" fill="${k}"/>`;
+if(t=='table')g=`<rect x="80" y="260" width="240" height="40" fill="${c}"/><rect x="100" y="300" width="14" height="100" fill="${C.ash}"/><rect x="286" y="300" width="14" height="100" fill="${C.ash}"/><rect x="230" y="236" width="60" height="24" fill="${k}" opacity=".85"/>`;
+if(t=='sconce')g=`<rect x="196" y="100" width="8" height="300" fill="${k}" opacity=".07"/><path d="M200 220 Q290 220 290 290 L200 290Z" fill="${c}"/><rect x="190" y="210" width="12" height="90" fill="#b08a4a"/><circle cx="260" cy="270" r="30" fill="#f3e6c4" opacity=".6"/>`;
+return `<svg viewBox="0 0 400 500" role="img" aria-label="${o.n}"><rect width="400" height="500" fill="${o.bg}"/><g transform="translate(${ox} 0) translate(200 250) scale(${sc}) translate(-200 -250)">${g}</g></svg>`}
+const card=(o,i)=>`<a class="card" href="#object-${o.id}"><div class="im">${art(o)}</div><div class="meta"><span>${String(i+1).padStart(2,'0')} ${o.n}</span><span>${o.s}</span></div></a>`;
+const $=document.getElementById('app');
+const mat=()=>M.map((m,i)=>`<div class="m">${sw(m[1],m[2],i)}<p><b>${m[0]}</b>${m[3]}</p></div>`).join('');
+const foot=`<footer><div class="big">FindMATA</div><div class="cols"><div><span class="cap">Contact</span><a href="mailto:hello@findmata.com">hello@findmata.com</a></div><div><span class="cap">Elsewhere</span>Instagram</div><div><span class="cap">Studio</span>Made in small batches</div></div></footer>`;
+const collab=`<div class="collab"><h2 class="serif">Better made <em>together.</em></h2><div><p style="margin:0 0 16px;max-width:30em">We work with designers, makers, fabricators and curious people. If you have a workshop, a process or a half-finished idea, write to us.</p><a class="btn" href="mailto:hello@findmata.com">Start a conversation</a></div></div>`;
+let flt='All';
+function home(){return `<section class="hero"><h1 class="big">FindMATA</h1><div class="intro"><span class="cap">Object design practice<br>Lighting, furniture, functional objects</span><p class="serif">An independent practice exploring <em>materials</em>, construction and form through making. Objects here are works in progress.</p></div></section>
+<div class="sec"><h2>Ongoing explorations</h2><a href="#objects">All objects</a></div><div class="grid">${O.slice(0,4).map(card).join('')}</div>
+<div class="sec"><h2>Selected materials</h2><a href="#materials">Archive</a></div><div class="mats">${mat()}</div>${collab}${foot}`}
+function objects(){const st=['All','Resolved','Prototype','In development','Concept'];const l=O.filter(o=>flt=='All'||o.s==flt);
+return `<div class="ph"><h1>Objects</h1><p>An archive of things we have made, are making, or are still arguing about.</p></div><div class="filters">${st.map(s=>`<button class="${s==flt?'on':''}" data-f="${s}">${s}</button>`).join('')}</div><div class="grid">${l.map(o=>card(o,O.indexOf(o))).join('')}</div><div style="height:64px"></div>${foot}`}
+function detail(id){const i=O.findIndex(o=>o.id==id),o=O[i];if(!o)return objects();const nx=O[(i+1)%O.length],pv=O[(i+O.length-1)%O.length];
+return `<div class="detail"><div><div class="im" id="hero">${art(o)}</div><div class="thumbs">${[0,1,2].map(v=>`<button data-v="${v}" class="${v?'':'on'}">${art(o,v)}</button>`).join('')}</div></div>
+<div><span class="cap">${String(i+1).padStart(2,'0')} / ${o.y}</span><h1 class="serif" style="font-size:clamp(40px,6vw,76px);margin:8px 0 16px">${o.n}</h1><p style="max-width:32em">${o.x}</p>
+<div class="spec"><div><span>Materials</span><span>${o.m}</span></div><div><span>Dimensions</span><span>${o.d}</span></div><div><span>Status</span><span><i class="dot"></i>${o.s}</span></div><div><span>Year</span><span>${o.y}</span></div></div>
+<p style="margin-top:20px"><a class="btn" href="mailto:hello@findmata.com?subject=${encodeURIComponent(o.n)}">Enquire about this object</a></p></div></div>
+<div class="nxt"><a href="#object-${pv.id}">← ${pv.n}</a><a href="#object-${nx.id}">${nx.n} →</a></div>${foot}`}
+function materials(){return `<div class="ph"><h1>Materials</h1><p>Swatches, test pieces and notes from the bench. Nothing here is final.</p></div><div class="mgrid">${M.map((m,i)=>`<div>${sw(m[1],m[2],i+10,1)}<p><b>${m[0]}</b>${m[3]}</p></div>`).join('')}</div>${foot}`}
+function collaboration(){return `<div class="ph"><h1>Collaboration</h1><p>FindMATA grows through other people’s skills. We are open to joint objects, shared workshops, material trials and commissions.</p></div>${collab}${foot}`}
+function route(){const h=(location.hash||'#home').slice(1);let r;
+if(h.startsWith('object-'))r=detail(h.slice(7));else if(h=='objects')r=objects();else if(h=='materials')r=materials();else if(h=='collaboration')r=collaboration();else r=home();
+$.innerHTML=r;scrollTo(0,0);document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',h.startsWith(a.dataset.n)||(h.startsWith('object-')&&a.dataset.n=='objects')));
+const hero=document.getElementById('hero');if(hero){const o=O.find(x=>'object-'+x.id==h);$.querySelectorAll('.thumbs button').forEach(b=>b.onclick=()=>{hero.innerHTML=art(o,+b.dataset.v);$.querySelectorAll('.thumbs button').forEach(t=>t.classList.toggle('on',t==b))})}
+$.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{flt=b.dataset.f;route()})}
+addEventListener('hashchange',route);route();
+</script></body></html>
